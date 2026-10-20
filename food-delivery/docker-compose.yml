@@ -1,0 +1,34 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: food-delivery-db
+    environment:
+      POSTGRES_DB: food_delivery
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d food_delivery"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  food-delivery:
+    build: .
+    container_name: food-delivery-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/food_delivery
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      JWT_SECRET: ${JWT_SECRET}
+
+volumes:
+  postgres_data:
