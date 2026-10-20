@@ -9,6 +9,7 @@ import com.bytebites.food_delivery.dto.RegisterRequest;
 import com.bytebites.food_delivery.dto.RegisterResponse;
 import com.bytebites.food_delivery.entity.User;
 import com.bytebites.food_delivery.repository.UserRepository;
+import com.bytebites.food_delivery.service.JwtService;
 import com.bytebites.food_delivery.service.UserService;
 
 @Service
@@ -17,11 +18,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
    public UserServiceImpl(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder) {
+                       PasswordEncoder passwordEncoder,JwtService jwtService) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
+    this.jwtService=jwtService;
 }
 
     @Override
@@ -53,6 +56,6 @@ public class UserServiceImpl implements UserService {
     }
 
     // JWT generation later
-    return new LoginResponse("Dummy JWT Token");
-}
+String token = jwtService.generateToken(user);
+return new LoginResponse(token);}
 }
