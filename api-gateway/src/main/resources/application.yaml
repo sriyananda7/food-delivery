@@ -4,7 +4,6 @@ server:
 spring:
   application:
     name: api-gateway
-
   cloud:
     gateway:
       server:
@@ -14,8 +13,17 @@ spring:
               uri: http://localhost:8081
               predicates:
                 - Path=/api/v1/auth/**
-
-            - id: food-service
-              uri: http://localhost:8082
+            - id: restaurant-service
+              uri: http://localhost:8083
               predicates:
                 - Path=/api/v1/restaurants/**
+            - id: menu-service
+              uri: http://localhost:8083
+              predicates:
+                - Path=/api/v1/menu-items/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway,health
