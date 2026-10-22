@@ -1,16 +1,16 @@
-package com.bytebites.food_delivery.serviceimpl;
+package com.bytebites.auth_service.serviceimpl;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bytebites.food_delivery.dto.LoginRequest;
-import com.bytebites.food_delivery.dto.LoginResponse;
-import com.bytebites.food_delivery.dto.RegisterRequest;
-import com.bytebites.food_delivery.dto.RegisterResponse;
-import com.bytebites.food_delivery.entity.User;
-import com.bytebites.food_delivery.repository.UserRepository;
-import com.bytebites.food_delivery.service.JwtService;
-import com.bytebites.food_delivery.service.UserService;
+import com.bytebites.auth_service.dto.LoginRequest;
+import com.bytebites.auth_service.dto.LoginResponse;
+import com.bytebites.auth_service.dto.RegisterRequest;
+import com.bytebites.auth_service.dto.RegisterResponse;
+import com.bytebites.auth_service.entity.User;
+import com.bytebites.auth_service.repository.UserRepository;
+import com.bytebites.auth_service.service.JwtService;
+import com.bytebites.auth_service.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {

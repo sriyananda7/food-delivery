@@ -1,4 +1,4 @@
-package com.bytebites.food_delivery.dto;
+package com.bytebites.auth_service.dto;
 
 public class LoginResponse {
 
