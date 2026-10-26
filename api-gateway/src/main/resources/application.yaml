@@ -21,6 +21,11 @@ spring:
               uri: http://localhost:8083
               predicates:
                 - Path=/api/v1/menu-items/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: restaurantCircuitBreaker
+                    fallbackUri: forward:/fallback/restaurants
 
 management:
   endpoints:
@@ -32,3 +37,13 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      restaurantService:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
